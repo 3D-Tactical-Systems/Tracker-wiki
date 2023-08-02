@@ -3,7 +3,7 @@
   -- Do NOT remove the leading `#` character.
   -->
 
-# Your wiki name
+# Tracker Documentation
 
 
 <!--
@@ -21,6 +21,7 @@
 
 [About](pages/about.md)
 [Download](pages/download.md)
+[Boat Landing](pages/Boat_Landing.md)
 
 <!-- A more complex navigation example: ----------------------------------------
 
