@@ -88,14 +88,42 @@ Throttle stick controls:
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
 
+# Home Locaiton Offset
+
+It is important to set the home location offset for the landing point relative to the antenna tracker. These values are in meters, in front-right-down format. Place the aircraft in the correct landing location with the antenna tracker setup and operational,then set the parameter SHIP_AUTO_OFS to 1. When this parameter is set to 1 the ship landing lua script will calculate the right offset values and set them in the FOLL_OFS_X, FOLL_OFS_Y and FOLL_OFS_Z values. The SHIP_AUTO_OFS value will reset to 0 automatically. 
+
+It is recommended that the method of setting SHIP_AUTO_OFS = 1 is used to get the location before each flight. Look carefully at the message it gives when this parameter is set(use the Messages tab in MissionPlanner):
+
+Set follow offset (-10.82,3.29,0.46)
+
+That message confirms that the X, Y and Z offset has calculated. Check that they are reasonable, paying close attention to the Z offset. If you get a bad Z offset (ie. a long way off from the actual height difference between the beacon and the aircraft) then you may need to reboot the beacon and/or aircraft to cope with GPS altitude drift.
+
+# Land Angle
+
+You can choose the approach angle of the aircraft to the ship. The default is SHIP_LAND_ANGLE = 0 which means land from behind the ship. A value of 90 will mean that the aircraft approaches the ship from the left-hand side. A value of -90 means it approaches from the right-hand side. A value of 180 means the aircraft will approach the landing from the front of the ship.
+
+You should choose a SHIP_LAND_ANGLE value to avoid obstructions on the ship, for example masts. The angle should also be chosen such that if you need to abort the landing, flying straight ahead will leave plenty of clearance to obstacles.
+
 # UAV Parameters
 
 To ensure the script is active check the *messages* tab for the following messages:
 
-|    Message       | Description                                                         |
-| -------------      | :-----                                                            |
-|    PreArm: Ship: no beacon    |  The UAV has lost connection with the antenna tracker. The UAV will not arm.  |
-| Have beacon     |  Esstablished connection to the antenna tracker      |
+|    Parameter       | Value            | Description                                           |
+| -------------      |:-------------    | :-----                                                |
+| RTL_RADIUS         | 100              | Enable Lua sripting on the flight controller          |
+| ALT_HOLD_ALT       | 100              | Provide enough memory to allow the script to run      |
+| Q_RTL_ATL          | 50               | 
+| SHIP_ENABLE        | 1                |
+| SHIP_LAND_ANGLE    | #                | Aproach from the stern of the ship for landing approach
+| SHIP_AUTO_OFS      | #                | Auto culculates home location offset from atenna tracker
+| Q_OPTIONS
+| FS_LONG_ACTN
+| Q_RTL_MODE
+| FOLL_ENABLE
+| FOLL_SYSID
+| 
+
+> **Note** the transition altitude is set using **Q_RTL_ALT**
 
 # Flight Plan 
 
