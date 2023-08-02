@@ -57,35 +57,45 @@ To ensure the script is active check the *messages* tab for the following messag
 
 # Ship Landing Function
 
-The Ship landing script only effects the *AUTO*, *RTL* and *Q_RTL* flight modes. There is no behaviour change applied to *QLOITER*, *QHOVER*, *FBWA*, *FBWB*, *CRUISE* ex.
+The ship landing script only effects the *AUTO*, *RTL* and *Q_RTL* flight modes. There is no behaviour change applied to *QLOITER*, *QHOVER*, *FBWA*, *FBWB*, *CRUISE* ex.
 
 ## Take-Off
-During an *Auto* take-off, while in Quadmode, the  UAV will match the velocity of the moving base until the transition altitude.
+During an *Auto* take-off, while in Quad-mode, the  UAV will match the velocity of the moving base until the transition altitude. This will ensure the UAV follows a 'vertical' path relative to the moving platfrom to avoid any platfrom superstructure.
+
+## RTL
+
+The RTL is a pilot-controlled function. If an RC connection is established the pilot is able to control and adjust some characteristics of the UAV's landing. The pilot is able to control the timing of the RTL stages and can "pause" the RTL in each stage untill conditions are considered appropriate to contiue. The RTL stage can be termintated at any point point and the previous stage initiated again. 
+
+If an RC connection is not established the UAV will transition through each stage automatically without delay. 
+
+ The RTL function is performed in four stages.
+
+1) **Return Home -** Once the *RTL* is initiated the UAV assends to the **RTL_HOLD_ALT** and begins its return to the *Home Location*. 
+2) **Hold-off Position -** When the UAV reaches a distance of about 2 x the **RTL_RADIUS** from the *Home Locaiton*  it will enter the *hold-off postion* stage. The UAV will loiter in close proximity to the moving platform maintaing a ALT_HOLD_RTL altitude. On input from the pilot the UAV will begin the *Platform Approch* stage.
+3) **Platform Aproach -** The UAV will continue loitering but desend down to an altitude set by ALT_HOLD_RTL. On input from the pilot the UAV will begin the *Q-Land stage. 
+4) **Q-Land -** The UAV will approach the platform at an angle defined by **SHIP_LAND_ANGLE**. It will transiton to to Q-RLT and begin a final decent to the platform. The UAV will continue to match the platform velocity to ensure an accurate landing. 
+
+
+## Pilot Input and Control
+
+During the RTL procedure the pilot controls the stage of the RTL according to the position of the throttle.
+
+Throttle stick controls:
+* Throttle at 40% or above:  Hold-off Position 
+* Throttle below 40% and above 10%: Platform Approach
+* Throttle below 10% : Q-Land
 
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
 
-This feature provides the following functionality and advantages:
-•	The home location is fixed relative the moving platform (antenna tracker). This means that when the location of the moving platform moves the home location will be updated. 
-•	The position of the home location relative to the antenna tracker can be set automatically. 
-•	During an “Auto” V-TOL take off the UAV will maintain a forward velocity matching the velocity of the moving platform (ship) until the transition altitude. This is to ensure a clear assent path of the UAV until it is well away from any obstacles or platform superstructure. 
-•	When RTL is activated, the UAV will begin its return to the location of the GCS not to the location of its initial take off position.
-•	Upon approach to the moving platform in RTL mode the UAV will navigate its auto landing following a three- phase behaviour.
-The three-phase approach is described below:
+# UAV Parameters
 
-o	Hold off Position – After RTL is initiated the UAV will return to the home location. On approach. The UAV will loiter in close proximity to the moving platform at an altitude set by  ALT_HOLD_RTL. If an RC connection is established. It will maintain its proximity to the moving platform until the pilot initiates the start of the landing procedure. Otherwise, it will automatically transition to the Platform approach phase. The distance the UAV loiters around the ship is dependent on the RTL_RADIUS parameter. 
+To ensure the script is active check the *messages* tab for the following messages:
 
-o	Platform Approach –The UAV will loiter decent to the Q_RTL_ALT altitude. It will approach the moving platform from the SHIP_LAND_ANGLE. 
-
-
-o	 Q-Land -  Once the UAV has reached the Q_RTL_ALT it will transition to Q-RTL and begin the final decent. It will match the forward velocity of the moving platform and land at the home location. 
-
-
-
-Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo. Donec sed odio dui.
-
-Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-
+|    Message       | Description                                                         |
+| -------------      | :-----                                                            |
+|    PreArm: Ship: no beacon    |  The UAV has lost connection with the antenna tracker. The UAV will not arm.  |
+| Have beacon     |  Esstablished connection to the antenna tracker      |
 
 # Flight Plan 
 
