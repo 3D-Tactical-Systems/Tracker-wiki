@@ -20,7 +20,7 @@
   -->
 
 [About](pages/about.md)
-[Download](pages/download.md)
+[Download](pages/Setup.md)
 [Boat Landing](pages/Boat_Landing.md)
 
 <!-- A more complex navigation example: ----------------------------------------
