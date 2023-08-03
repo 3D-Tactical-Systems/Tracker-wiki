@@ -19,8 +19,8 @@
   -- (Read: http://dynalon.github.io/mdwiki/#!quickstart.md#Adding_a_navigation)
   -->
 
-[About](pages/about.md)
-[Download](pages/Setup.md)
+[Home](pages/Home.md)
+[Setup](pages/Setup.md)
 [Boat Landing](pages/Boat_Landing.md)
 
 <!-- A more complex navigation example: ----------------------------------------

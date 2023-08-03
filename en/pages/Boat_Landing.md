@@ -9,6 +9,8 @@ This document will descripte the and preparation required to perform such a miss
 > **Note** 
 The Boat Landing functionality is suported for Quad-Plane (VTOL) UAV's only
 
+note! test note
+
 # Equipment Setup
 
 In adition to the standard antenna tracker [Setup](setup.md) the following should be considered:
@@ -19,7 +21,8 @@ In adition to the standard antenna tracker [Setup](setup.md) the following shoul
 * The orentation of the antenna tracker does not effect its tracking accuracy.
 
 
-![alt](uploads/images/Tracker_Side_front.png) 
+![alt](uploads/images/Tracker_Side_Front.png) 
+
 ![alt](uploads/images/truck.jpeg  "Truck")
 
 ## Enabling Scipting on the Flight Controller
@@ -77,11 +80,14 @@ Throttle stick controls:
 | Throttle below 10%            |       Transition to or continue  **Q-Land** stage | ![alt](uploads/images/Throtle10.png) |
 
 
- ## Q_OPTIONS Control
- There are three standard Q-Plane options that are recomned to be 
-Once the landing descent has started can still abort the landing. To do this, the Q_OPTIONS bit 15 must be set to enable ThrLandControl. When that option is set you can raise the throttle momentarily above 70% to enable throttle control for climb and descent rate. You can use this to slow the descent or climb back up. If you climb up past the Q_RTL_ALT approach altitude then the aircraft will go back to loitering at the hold-off location at Q_RTL_ALT.
 
-You may also want to enable horizontal repositioning with the Q_OPTIONS bit 17(EnableLandResponsition). If that is enabled then you can manually reposition the aircraft horizontally while landing to account for any GPS position errors.
+There are 2 standard Q-Plane abilities that should be enabled to provide the pilot with additional control:
+
+
+* **Q_OPTIONS bit 15:** This enables throttle land control.  When set the pilot can control the climb and descent rate during VTOL take of and landing  It is activated if the throttle is momentarily moved above 70%. The feature can be used to abort a the Q-Land stage. If the UAV climbs up past the **Q_RTL_ALT** approach altitude then the aircraft will go back to loitering at the hold-off location at **Q_RTL_ALT**.
+ 
+* **Q_OPTIONS bit 17:** This enables horizontal repositioning The pilot can manually reposition the aircraft horizontally while landing. While repositioning the decent will pause. 
+
 
 
 
@@ -138,14 +144,16 @@ To ensure the script is active check the *messages* tab for the following messag
 | SHIP_ENABLE        | 1                |
 | SHIP_LAND_ANGLE    | #                | Aproach from the stern of the ship for landing approach
 | SHIP_AUTO_OFS      | #                | Auto culculates home location offset from atenna tracker
-| Q_OPTIONS          | set bit 5            |
-| Q_OPTIONS          | set bit 15           |
-| Q_OPTIONS          | set bit 17           |
-| FS_LONG_ACTN
-| Q_RTL_MODE
-| FOLL_ENABLE
-| FOLL_SYSID
-| Q_TRANS_DECEL
+| Q_OPTIONS          | set bit 5            | Always QRTL 
+| Q_OPTIONS          | set bit 15           | enables throttle land control
+| Q_OPTIONS          | set bit 17           | enables horizontal repositioning
+| FS_LONG_ACTN       | 1                    | RTL
+| Q_RTL_MODE         | 0                    | Execute and normal RTL
+| RTL_AUTOLAND       | 0                    | do not automatically begin landing sequence 
+| FOLL_ENABLE        |
+| FOLL_SYSID         | 17                   | System Id of the antenna tracker
+
+| Q_TRANS_DECEL      |
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
 
