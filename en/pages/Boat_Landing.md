@@ -6,10 +6,9 @@ The 3D Tactical System tracker is designed to be used in harsh and demanding env
 * The UAV needs to be able take off, approach and land on a platfrom with very limited space, avoiding superstructure and other obsticals. 
 
 This document will descripte the and preparation required to perform such a mission. 
-> **Note** 
-The Boat Landing functionality is suported for Quad-Plane (VTOL) UAV's only
 
-note! test note
+note! The Boat Landing functionality is suported for Quad-Plane (VTOL) UAV's only
+
 
 ## Equipment Setup
 
