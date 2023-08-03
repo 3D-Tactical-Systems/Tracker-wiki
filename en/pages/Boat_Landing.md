@@ -11,7 +11,7 @@ The Boat Landing functionality is suported for Quad-Plane (VTOL) UAV's only
 
 note! test note
 
-# Equipment Setup
+## Equipment Setup
 
 In adition to the standard antenna tracker [Setup](setup.md) the following should be considered:
 
@@ -46,14 +46,14 @@ Dowload the ship landing script from [here](uploads/documents/plane_ship_landing
 ![Alt text](uploads/images/MAVfp.png "MAVftp")
 
 
-# Ship Landing Function
+## Ship Landing Function
 
 The ship landing script only effects the *AUTO*, *RTL* and *Q_RTL* flight modes. There is no behaviour change applied to *QLOITER*, *QHOVER*, *FBWA*, *FBWB*, *CRUISE* ex.
 
-## Take-Off
+### Take-Off
 During an *Auto* take-off, while in Quad-mode, the  UAV will match the velocity of the moving base until the transition altitude. This will ensure the UAV follows a 'vertical' path relative to the moving platfrom to avoid any platfrom superstructure.
 
-## RTL
+### RTL
 
 The RTL is a pilot-controlled function. If an RC connection is established the pilot is able to control and adjust some characteristics of the UAV's landing. The pilot is able to control the timing of the RTL stages and can "pause" the RTL in each stage untill conditions are considered appropriate to contiue. The RTL stage can be termintated at any point point and the previous stage initiated again. 
 
@@ -91,7 +91,7 @@ There are 2 standard Q-Plane abilities that should be enabled to provide the pil
 
 
 
-# Messages 
+## Messages 
 
 During the operation of the script the following messages may appear in the  *messages* tab:
 
@@ -110,7 +110,7 @@ During the operation of the script the following messages may appear in the  *me
 
 
 
-# Home Locaiton Offset
+## Home Locaiton Offset
 
 It is important to set the home location offset for the landing point relative to the antenna tracker. These values are in meters, in front-right-down format. Place the aircraft in the correct landing location with the antenna tracker setup and operational,  set the parameter SHIP_AUTO_OFS to 1. When this parameter is set to 1 the ship landing lua script will calculate the right offset values and set them in the **FOLL_OFS_X**, **FOLL_OFS_Y** and **FOLL_OFS_Z** values. The **SHIP_AUTO_OFS** value will reset to 0 automatically. 
 
@@ -120,7 +120,7 @@ Set follow offset (-10.82,3.29,0.46)
 
 That message confirms that the X, Y and Z offset has calculated. Check that they are reasonable, paying close attention to the Z offset. If you get a bad Z offset (ie. a long way off from the actual height difference between the beacon and the aircraft) then you may need to reboot the beacon and/or aircraft to cope with GPS altitude drift.
 
-# Land Angle
+## Land Angle
 
 You can choose the approach angle of the aircraft to the ship. The default is **SHIP_LAND_ANGLE** = 0 which means land from behind the ship. A value of 90 will mean that the aircraft approaches the ship from the left-hand side. A value of -90 means it approaches from the right-hand side. A value of 180 means the aircraft will approach the landing from the front of the ship.
 
@@ -132,7 +132,7 @@ You should choose a **SHIP_LAND_ANGLE** value to avoid obstructions on the ship,
 *SHIP_LAND_ANGLE = 0*
 
 
-# UAV Parameters
+## UAV Parameters
 
 To ensure the script is active check the *messages* tab for the following messages:
 
@@ -157,7 +157,7 @@ To ensure the script is active check the *messages* tab for the following messag
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
 
-# Flight Plan 
+## Flight Plan 
 
 Bellow shows an example of a test flight mission
 
