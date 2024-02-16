@@ -1,6 +1,13 @@
 README
 ======
 
+This is a wiki page for the antenna tracker. The documnetation for the boat landing script is included.
+
+The wiki can be accesses here:
+https://3d-tactical-systems.github.io/Tracker-wiki/en/#!index.md
+
+
+
 First things first
 ------------------
 
