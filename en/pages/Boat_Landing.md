@@ -146,23 +146,23 @@ Selecting the appropriate **SHIP_LAND_ANGLE** is crucial for avoiding obstructio
 
 ## UAV Parameters 
 
-To ensure the script is active check the *messages* tab for the following messages:
+A default set of parameters is provided below: 
 
 |    Parameter       | Value            | Description                                           |
 | -------------      |:-------------    | :-----                                                |
-| RTL_RADIUS         | 100              | Enable Lua sripting on the flight controller          |
-| ALT_HOLD_ALT       | 100              | Provide enough memory to allow the script to run      |
-| Q_RTL_ATL          | 50               | 
-| SHIP_ENABLE        | 1                |
-| SHIP_LAND_ANGLE    | #                | Aproach from the stern of the ship for landing approach
-| SHIP_AUTO_OFS      | #                | Auto culculates home location offset from atenna tracker
-| Q_OPTIONS          | set bit 5            | Always QRTL 
-| Q_OPTIONS          | set bit 15           | enables throttle land control
-| Q_OPTIONS          | set bit 17           | enables horizontal repositioning
+| RTL_RADIUS         | 100              |  In meters (negative for counter-clockwise loiter, positive for clockwise loiter). If RTL_RADIUS is zero, then the WP_LOITER_RAD parameter is used.        |
+| ALT_HOLD_RTL       | 100              |    Altitude at which the UAV will return to the Home location   |
+| Q_RTL_ATL          | 40               | Transition altitude of the UAV form fixted wing mode to Q-mode
+| SHIP_ENABLE        | 1                | Enable Ship landing                                                               |
+| SHIP_LAND_ANGLE    | 0                | Aproach from angle relative to the ship 0 - aproach from the stern of the ship    | 
+| SHIP_AUTO_OFS      | 1                | Auto culculates home location offset from atenna tracker      |
+| Q_OPTIONS          | set bit 5            | Always QRTL                                               |
+| Q_OPTIONS          | set bit 15           | enables throttle land control                             |
+| Q_OPTIONS          | set bit 17           | enables horizontal repositioning                          |
 | FS_LONG_ACTN       | 1                    | RTL
 | Q_RTL_MODE         | 0                    | Execute and normal RTL
 | RTL_AUTOLAND       | 0                    | do not automatically begin landing sequence 
-| FOLL_ENABLE        |
+| FOLL_ENABLE        | 1                    | Enbable the UAV to follow the new home location |
 | FOLL_SYSID         | 17                   | System Id of the antenna tracker
 
 | Q_TRANS_DECEL      |
@@ -176,3 +176,4 @@ Bellow shows an example of a test flight mission
 ![alt](uploads/images/Mission_Plan.png)
 
 note! Extra info can be obtained here: https://ardupilot.org/plane/docs/common-ship-landing.html
+

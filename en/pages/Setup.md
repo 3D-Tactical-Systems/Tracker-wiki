@@ -59,7 +59,7 @@ Once started a Mavproxy console will open. if this window is closed, Mavproxy wi
 
 ![alt](uploads/images/Mavproxy.png)
 
-The status icon will indicate if Mavproxzy is operating correctly.
+The status icon will indicate if Mavproxy is operating correctly.
 
 
 ![alt](uploads/images/statusC.png)
