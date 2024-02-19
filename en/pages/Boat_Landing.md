@@ -1,23 +1,22 @@
 # Boat Landing
 
-The 3D Tactical System tracker is designed to be used in harsh and demanding enviroments. Besides its rugged build it includes functionality that allows it to be used on a moving or floating platforms. In order to conduct a flight mission in such an enviroment. ther are two main challanges that need need to overcome.
+The 3D Tactical System tracker is engineered for use in harsh and demanding environments. Beyond its durable construction, it incorporates features enabling operation on moving or floating platforms. To execute a flight mission under such conditions, two primary challenges must be addressed:
 
-* The home(RTL location) needs to be updated according to the position of the ground control station or platfrom. This will ensure the UAV is alway able to return home and land succesfull without pilot aid. 
-* The UAV needs to be able take off, approach and land on a platfrom with very limited space, avoiding superstructure and other obsticals. 
-
-This document will descripte the and preparation required to perform such a mission. 
+The home (RTL location) must be dynamically updated to reflect the ground control station or platform's position, ensuring the UAV can always return and land successfully without pilot intervention.
+The UAV must be capable of taking off, approaching, and landing on a platform with limited space, while navigating around superstructures and other obstacles.
+This document outlines the strategies and preparations necessary to undertake such a mission. 
 
 note! The Boat Landing functionality is suported for Quad-Plane (VTOL) UAV's only
 
 
 ## Equipment Setup
 
-In adition to the standard antenna tracker [Setup](setup.md) the following should be considered:
+In addition to the instructions detailed in Setup, the following considerations should be taken into account:
 
-* The base of the antenna tracker should point towards the front of the moving platform. Carefull note of the orentation and position should be taken before flight.
-* The *Home Locaiton* is fixed relative to the position and orentation of the antenna tracker. This means that if the antenna tracker is rotated by 15 deg the *Home location* will move in proportion.
-* If the base of the antenna tracker is disturbed during a flight it should be returned to its original position and orientation before an RTL mode is activated.
-* The orentation of the antenna tracker does not effect its tracking accuracy.
+* The base of the antenna tracker should be oriented towards the front of the moving platform. Careful note of the orientation and position should be documented before flight.
+* The Home Location is fixed relative to the position and orientation of the antenna tracker. This means that if the antenna tracker is rotated by 15 degrees, the Home Location will adjust accordingly.
+* If the base of the antenna tracker is disturbed during a flight, it should be realigned to its original position and orientation before an RTL (Return to Launch) mode is activated.
+
 
 
 ![alt](uploads/images/Tracker_Side_Front.png) 
@@ -26,17 +25,20 @@ In adition to the standard antenna tracker [Setup](setup.md) the following shoul
 
 ## Enabling Scipting on the Flight Controller
 
-An additional script will need to be added to the flight controller to enable the boat landing functionality. By default the flight controler has scripting disabled. The following parameters will need to be changed:
+To enable the boat landing functionality, an additional script must be incorporated into the flight controller. By default, scripting is disabled on the flight controller. To activate this feature, the following parameters will need to be modified: 
 
-
+1) Enable Scripting: Set the SCR_ENABLE parameter that enables the execution of custom scripts.
+2) Memory Allocation for Scripts: Increase the memory allocated for the script.
+3) Enable MAVftp: Enable MAVftp functionality to be able to upload the required script to the flight controller.
 
 |    Parameter       | Value            | Description                                           |
 | -------------      |:-------------    | :-----                                                |
 | SCR_ENABLE         | 1                | Enable Lua sripting on the flight controller          |
 | SCR_HEAP_SIZE      | 100000           | Provide enough memory to allow the script to run      |
+| BRD_OPTIONS        | 1                | Enable MAVftp     |
 
 
-Ensure the parameters are saved and writen to the flight controller
+note! Remember, after changing these parameters, it's important to save your settings and possibly restart the flight controller for the changes to take effect.
 
 ![alt](uploads/images/SCR_Params.png "SCR_Params")
 
@@ -54,17 +56,20 @@ During an *Auto* take-off, while in Quad-mode, the  UAV will match the velocity 
 
 ### RTL
 
-The RTL is a pilot-controlled function. If an RC connection is established the pilot is able to control and adjust some characteristics of the UAV's landing. The pilot is able to control the timing of the RTL stages and can "pause" the RTL in each stage untill conditions are considered appropriate to contiue. The RTL stage can be termintated at any point point and the previous stage initiated again. 
+The Return to Launch (RTL) feature is under pilot control. When an RC (Remote Control) connection is active, the pilot has the capability to adjust certain aspects of the UAV's landing process. This includes managing the timing of the RTL stages, allowing the pilot to "pause" the RTL at any stage until conditions are deemed suitable to proceed. Moreover, the RTL process can be terminated at any stage, with the option to revert to the preceding stage if necessary. This level of control ensures that the pilot can respond dynamically to changing conditions, enhancing the safety and flexibility of the landing operation.
 
 If an RC connection is not established the UAV will transition through each stage automatically without delay. 
 
  The RTL function is performed in four stages.
 
-1) **Return Home -** Once the *RTL* is initiated the UAV assends to the **RTL_HOLD_ALT** and begins its return to the *Home Location*. 
-2) **Hold-off Position -** When the UAV reaches a distance of about 2 x the **RTL_RADIUS** from the *Home Locaiton*  it will enter the *hold-off postion* stage. The UAV will loiter in close proximity to the moving platform maintaing a ALT_HOLD_RTL altitude. On input from the pilot the UAV will begin the *Platform Approch* stage.
-3) **Platform Approach -** The UAV will continue loitering but desend down to an altitude set by ALT_HOLD_RTL. On input from the pilot the UAV will begin the *Q-Land stage. 
-4) **Q-Land -** The UAV will approach the platform at an angle defined by **SHIP_LAND_ANGLE**. It will transiton to to Q-RLT and begin a final decent to the platform. The UAV will continue to match the platform velocity to ensure an accurate landing. 
 
+ 1) **Return Home -** Once the RTL is initiated, the UAV ascends to the **ALT_HOLD_RTL** and begins its return to the Home Location.
+2) **Hold-off Position -** When the UAV reaches a distance of about 2 x the **RTL_RADIUS** from the Home Location, it will enter the hold-off position stage. The UAV will circle/loiter in close proximity to the moving platform, maintaining a **ALT_HOLD_RTL** altitude. Upon input from the pilot, the UAV will begin the Platform Approach stage.
+3) **Platform Approach -** The UAV will continue loitering but descend down to an altitude set by **Q_RTL_ALT**. Upon input from the pilot, the UAV will begin the Q-Land stage.
+4) **Q-Land -** The UAV will approach the platform at an angle defined by **SHIP_LAND_ANGLE**. It will transition to Q-RTL and begin a final descent to the platform. The UAV will continue to match the platform velocity to ensure an accurate landing.
+
+
+note! **ALT_HOLD_RTL** has changed to **RLT_ALTITUDE** is version 4.6.0.
 
 ## Pilot Input and Control
 
@@ -83,7 +88,7 @@ Throttle stick controls:
 There are 2 standard Q-Plane abilities that should be enabled to provide the pilot with additional control:
 
 
-* **Q_OPTIONS bit 15:** This enables throttle land control.  When set the pilot can control the climb and descent rate during VTOL take of and landing  It is activated if the throttle is momentarily moved above 70%. The feature can be used to abort a the Q-Land stage. If the UAV climbs up past the **Q_RTL_ALT** approach altitude then the aircraft will go back to loitering at the hold-off location at **Q_RTL_ALT**.
+* **Q_OPTIONS** bit 15: This enables throttle land control. When set, the pilot can control the climb and descent rate during VTOL (Q-mode) takeoffs and landings. It is activated if the throttle is momentarily moved above 70%. The feature can be used to abort the Q-Land stage. If the UAV climbs past the **Q_RTL_ALT** approach altitude, then the aircraft will revert to loitering at the hold-off location at **Q_RTL_ALT**.
  
 * **Q_OPTIONS bit 17:** This enables horizontal repositioning The pilot can manually reposition the aircraft horizontally while landing. While repositioning the decent will pause. 
 
@@ -96,11 +101,11 @@ During the operation of the script the following messages may appear in the  *me
 
 |    Message       | Description                                                                                   |
 | -------------      | :-----                                                                                    |
-| PreArm: Ship: no beacon    |  The UAV has lost connection with the antenna tracker. The UAV will not arm.     |
-| Have beacon                   |  Esstablished connection to the antenna tracker                                |
+| PreArm: Ship: no beacon    |  The UAV has lost connection with the antenna tracker or the GPS of the antenenna tracker is not accuate.  The UAV will not arm.                         |
+| Have beacon                   |  Established connection to the antenna.tracker                                |
 | Could not find # parameter     |  Script was not able to access the FC parameters. Reboot the UAV.
 | Descending for approach       | Transitioned from Hold-off Position stage to Platform Approach                |
-| Climbing for holdoff          | Transition from Platform Approach to Hold-off Position                        |
+| Climbing for hold-off          | Transition from Platform Approach to Hold-off Position                        |
 | Starting approach           | Transition from Platfrom Approach to Q-Land                                   |
 | Aborting landing              | Transition form Q-Land to Hold-off Position                                   |
 | Reached target altitude       | If **RTL_HOLD_ALT** is reached in Hold-off Position stage or **Q_RTL_ALT** is reached in Platform Approach stage|
@@ -109,29 +114,37 @@ During the operation of the script the following messages may appear in the  *me
 
 
 
-## Home Locaiton Offset
+## Home Location Offset
 
-It is important to set the home location offset for the landing point relative to the antenna tracker. These values are in meters, in front-right-down format. Place the aircraft in the correct landing location with the antenna tracker setup and operational,  set the parameter SHIP_AUTO_OFS to 1. When this parameter is set to 1 the ship landing lua script will calculate the right offset values and set them in the **FOLL_OFS_X**, **FOLL_OFS_Y** and **FOLL_OFS_Z** values. The **SHIP_AUTO_OFS** value will reset to 0 automatically. 
+It is important to set the home location offset for the landing point relative to the antenna tracker. These values are in meters, in front-right-down format. Place the aircraft in the correct landing location with the antenna tracker setup and operational, set the parameter SHIP_AUTO_OFS to 1. When this parameter is set to 1, the ship landing Lua script will calculate the right offset values and set them in the **FOLL_OFS_X**, **FOLL_OFS_Y**, and **FOLL_OFS_Z** values. The **SHIP_AUTO_OFS** value will reset to 0 automatically.
 
-It is recommended that the method of setting **SHIP_AUTO_OFS** = 1 is used to get the location before each flight. Look carefully at the message it gives when this parameter is set(use the Messages tab in MissionPlanner):
+The offset values can be manually set but it is recommended that the auto detect function is used. A message will be displayed once the auto detect has complete.
 
+```bash
 Set follow offset (-10.82,3.29,0.46)
+```
 
-That message confirms that the X, Y and Z offset has calculated. Check that they are reasonable, paying close attention to the Z offset. If you get a bad Z offset (ie. a long way off from the actual height difference between the beacon and the aircraft) then you may need to reboot the beacon and/or aircraft to cope with GPS altitude drift.
+That message confirms that the X, Y and Z offset has been calculated. Check that they are reasonable, paying close attention to the Z offset.
+
+note!  **SHIP_AUTO_OFS** needs to be set each flight. and will be reset back to 0 once the offsets have been detected. 
+
+Should the Z offset diverge notably from the actual vertical distance between the beacon and the aircraft, indicative of an inaccurate Z offset, it may be essential to either reset the SHIP_AUTO_OFS to recalculate a new set of values, or reboot the beacon, the aircraft, or both. This action is necessary to rectify discrepancies arising from GPS altitude drift.
 
 ## Land Angle
 
-You can choose the approach angle of the aircraft to the ship. The default is **SHIP_LAND_ANGLE** = 0 which means land from behind the ship. A value of 90 will mean that the aircraft approaches the ship from the left-hand side. A value of -90 means it approaches from the right-hand side. A value of 180 means the aircraft will approach the landing from the front of the ship.
 
-You should choose a **SHIP_LAND_ANGLE** value to avoid obstructions on the ship, for example masts. The angle should also be chosen such that if you need to abort the landing, flying straight ahead will leave plenty of clearance to obstacles.
+The approach angle of the aircraft relative to the ship can be customized to suit specific landing requirements. By default, **SHIP_LAND_ANGLE** is set to 0, indicating a landing approach from behind the ship. Setting this value to 90 directs the aircraft to approach from the ship's left-hand side, while a value of -90 positions it to approach from the right-hand side. If SHIP_LAND_ANGLE is set to 180, the aircraft will execute its landing approach from the front of the ship.
+
+
+Selecting the appropriate **SHIP_LAND_ANGLE** is crucial for avoiding obstructions on the ship, such as masts. Additionally, it's important to choose an angle that ensures, should you need to abort the landing, continuing straight ahead will provide ample clearance from any obstacles. This strategic choice enhances safety and efficiency during the landing process.
 
 ![alt](uploads/images/Land_Angle-45.png "Some title")
-*SHIP_LAND_ANGLE = -45*
 ![alt](uploads/images/Land_Angle0.png)
-*SHIP_LAND_ANGLE = 0*
+
+*SHIP_LAND_ANGLE = -45*____________________________*SHIP_LAND_ANGLE = 0*
 
 
-## UAV Parameters
+## UAV Parameters 
 
 To ensure the script is active check the *messages* tab for the following messages:
 
@@ -161,3 +174,5 @@ To ensure the script is active check the *messages* tab for the following messag
 Bellow shows an example of a test flight mission
 
 ![alt](uploads/images/Mission_Plan.png)
+
+note! Extra info can be obtained here: https://ardupilot.org/plane/docs/common-ship-landing.html
