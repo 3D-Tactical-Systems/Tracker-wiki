@@ -4,10 +4,7 @@
 
 
 ## Antena Tracker
-![alt](uploads/images/Nextech_Field-052620.jpg)
 
 
+![alt](pages/uploads/images/Nextech_Field.jpg)
 
-## Section 2
-
-Add stuff here
