@@ -165,7 +165,8 @@ A default set of parameters is provided below:
 | Q_RTL_MODE         | 0                    | Execute and normal RTL
 | RTL_AUTOLAND       | 0                    | do not automatically begin landing sequence 
 | FOLL_ENABLE        | 1                    | Enbable the UAV to follow the new home location |
-| FOLL_SYSID         | 17                   | System Id of the antenna tracker
+| FOLL_SYSID         | 17                   | System Id of the antenna tracker |
+ BRD_OPTIONS         | 1                    | Enable MAVftp     |
 
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
