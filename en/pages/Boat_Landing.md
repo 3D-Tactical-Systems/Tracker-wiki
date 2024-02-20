@@ -150,6 +150,8 @@ A default set of parameters is provided below:
 
 |    Parameter       | Value            | Description                                           |
 | -------------      |:-------------    | :-----                                                |
+| SCR_ENABLE        | 1             |  Enable LUA scripting on the flight controller        |
+| SCR_HEAP_SIZE         | 100000              |  Allow enough memory to run the LUA script        |
 | RTL_RADIUS         | 100              |  In meters (negative for counter-clockwise loiter, positive for clockwise loiter). If RTL_RADIUS is zero, then the WP_LOITER_RAD parameter is used.        |
 | ALT_HOLD_RTL       | 100              |    Altitude at which the UAV will return to the Home location   |
 | Q_RTL_ATL          | 40               | Transition altitude of the UAV form fixted wing mode to Q-mode
@@ -165,7 +167,6 @@ A default set of parameters is provided below:
 | FOLL_ENABLE        | 1                    | Enbable the UAV to follow the new home location |
 | FOLL_SYSID         | 17                   | System Id of the antenna tracker
 
-| Q_TRANS_DECEL      |
 
 > **Note** the transition altitude is set using **Q_RTL_ALT**
 
