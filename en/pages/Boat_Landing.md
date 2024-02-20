@@ -126,7 +126,7 @@ Set follow offset (-10.82,3.29,0.46)
 
 That message confirms that the X, Y and Z offset has been calculated. Check that they are reasonable, paying close attention to the Z offset.
 
-note!  **SHIP_AUTO_OFS** needs to be set each flight. and will be reset back to 0 once the offsets have been detected. 
+note!  **SHIP_AUTO_OFS** needs to be set each flight and will be reset back to 0 once the offsets have been culculated. 
 
 Should the Z offset diverge notably from the actual vertical distance between the beacon and the aircraft, indicative of an inaccurate Z offset, it may be essential to either reset the SHIP_AUTO_OFS to recalculate a new set of values, or reboot the beacon, the aircraft, or both. This action is necessary to rectify discrepancies arising from GPS altitude drift.
 
@@ -139,9 +139,9 @@ The approach angle of the aircraft relative to the ship can be customized to sui
 Selecting the appropriate **SHIP_LAND_ANGLE** is crucial for avoiding obstructions on the ship, such as masts. Additionally, it's important to choose an angle that ensures, should you need to abort the landing, continuing straight ahead will provide ample clearance from any obstacles. This strategic choice enhances safety and efficiency during the landing process.
 
 ![alt](uploads/images/Land_Angle-45.png "Some title")
+*SHIP_LAND_ANGLE = -45*
 ![alt](uploads/images/Land_Angle0.png)
-
-*SHIP_LAND_ANGLE = -45*____________________________*SHIP_LAND_ANGLE = 0*
+*SHIP_LAND_ANGLE = 0*
 
 
 ## UAV Parameters 
